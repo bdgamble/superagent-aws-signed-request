@@ -1,0 +1,65 @@
+service: superagent-aws-signed-request-test
+
+plugins:
+   - serverless-plugin-include-dependencies
+   - serverless-resources-env
+
+provider:
+  name: aws
+  runtime: nodejs4.3
+  cfLogs: true
+
+package:
+  exclude:
+    - src/**
+    - tests/**
+    - node_modules/**
+  include:
+    - tests/infra/**
+
+custom:
+  resource-output-dir: tests/infra/resources
+
+functions:
+  test:
+    handler: tests/infra/test.handler
+    custom:
+      env-resources:
+        - ExecuteApiIAMRole
+        - ApiGatewayRestApi
+    events:
+      - http:
+          path: /test
+          method: GET
+
+resources:
+  Resources:
+    ApiGatewayMethodTestGet:
+      Properties:
+        AuthorizationType: AWS_IAM
+    ExecuteApiIAMRole:
+      Type: AWS::IAM::Role
+      Properties:
+        AssumeRolePolicyDocument:
+          Version: "2012-10-17"
+          Statement:
+            - Effect: Allow
+              Action:
+                - sts:AssumeRole
+              Principal:
+                Service:
+                  - apigateway.amazonaws.com
+                AWS:
+                  - Fn::Join:
+                    - ""
+                    - - "arn:aws:iam::"
+                      - "Ref" : "AWS::AccountId"
+                      - ":root"
+        Policies:
+          - PolicyName: ExecuteApiIAMPolicy
+            PolicyDocument:
+              Version: "2012-10-17"
+              Statement:
+                - Effect: Allow
+                  Action: "execute-api:Invoke"
+                  Resource: "*"
