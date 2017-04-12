@@ -1,5 +1,7 @@
 # superagent-aws-signed-request
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/bdgamble/superagent-aws-signed-request.svg)](https://greenkeeper.io/)
+
 Superagent plugin that intercepts and signs the request with [AWS Signature V4](http://docs.aws.amazon.com/general/latest/gr/signature-version-4.html)
 
 # Usage
