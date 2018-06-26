@@ -1,6 +1,6 @@
 {
   "name": "superagent-aws-signed-request",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "plugin for superagent to sign requests with aws signature v4",
   "main": "index.js",
   "scripts": {
