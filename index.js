@@ -2,7 +2,7 @@
 
 const aws4 = require('aws4');
 const qs = require('qs');
-const url = require('url');
+const Url = require('url-parse');
 
 module.exports = function awsSignedRequest(service, options) {
   if (!service || typeof service !== 'string') {
@@ -25,7 +25,7 @@ module.exports = function awsSignedRequest(service, options) {
         headers['X-Amz-Security-Token'] = options.sessionToken;
       }
 
-      const parsedUrl = url.parse(req.url, true);
+      const parsedUrl = new Url(req.url, null, true);
       let path = parsedUrl.path;
       // superagent does not append the querystring to the path until end is called, so in order to get the correct path for signing, must append it here.
       if (Object.keys(req.qs).length) {
