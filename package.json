@@ -17,6 +17,8 @@
     "awssignaturev4"
   ],
   "author": "Bryan Gamble <bryan.d.gamble@gmail.com>",
+  "homepage": "https://github.com/bdgamble/superagent-aws-signed-request",
+  "repository": "github:bdgamble/superagent-aws-signed-request",
   "license": "MIT",
   "dependencies": {
     "aws4": "1.8.0",
